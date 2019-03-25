@@ -136,7 +136,7 @@ class Contact extends Component {
                                                                 current:this.state.page, 
                                                                 total:this.state.totalDocs, 
                                                                 onChange:this.onPagerChange.bind(this)}} />
-        <button onClick={this.mostar.bind(this)}>Add new </button>
+        <Button type='primary' onClick={this.mostar.bind(this)}>Add new </Button>
         {this.state.show&&<ContactEdit contact={this.state.selectedContact} rtabla={this.fetchContacts.bind(this)}/>}
         {this.state.showAdd&&<Contactform rtabla={this.fetchContacts.bind(this)}/>}
       </div>
