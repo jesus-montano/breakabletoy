@@ -80,7 +80,7 @@ class Contact extends Component {
       .then(res => res.json())
       .then(data => {
         console.log(data)
-        this.setState({ pages: data.totalPages, contacts: data.docs, page: data.page, totalDocs: data.totalDocs})
+        this.setState({ pages: data.totalPages, contacts: data.docs, page: data.page, totalDocs: data.totalDocs, show:false, showAdd:false})
       })
   }
   
@@ -103,8 +103,11 @@ class Contact extends Component {
     return (
       <div>
         
-        <Pagination defaultCurrent={1} current={this.state.page} total={this.state.totalDocs} onChange={this.onPagerChange.bind(this)} />
-        <Table columns={columns} dataSource={contactsItems} size="middle" o />
+        
+        <Table columns={columns} dataSource={contactsItems} size="middle" pagination={{defaultCurrent:1, 
+                                                                current:this.state.page, 
+                                                                total:this.state.totalDocs, 
+                                                                onChange:this.onPagerChange.bind(this)}} />
         <button onClick={this.mostar.bind(this)}>agregar</button>
         {this.state.show&&<ContactEdit contact={this.state.selectedContact} rtabla={this.fetchContacts.bind(this)}/>}
         {this.state.showAdd&&<Contactform rtabla={this.fetchContacts.bind(this)}/>}

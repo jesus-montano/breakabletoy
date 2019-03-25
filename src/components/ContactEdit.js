@@ -71,10 +71,12 @@ class ContactEdit extends Component {
             .then(data => {
                 console.log(data)
                 this.props.rtabla()
+                
             })
     }
     render() {
         console.log(this.state.name)
+        
         return (
             <div>
                 <h1>Edit Contact</h1>
