@@ -1,10 +1,13 @@
 import React, { Component } from 'react'
-import { Pagination } from 'antd'
+
 import 'antd/lib/pagination/style/css'
 import { Table } from 'antd';
 import 'antd/dist/antd.css'
 import ContactEdit from './ContactEdit'
 import Contactform from './Contactform'
+import {
+  Form, Input, Select, Button, notification,
+} from 'antd';
 class Contact extends Component {
   constructor(props) {
     super(props)
@@ -56,7 +59,32 @@ class Contact extends Component {
             headers: {
                 'content-type': 'application/json'},
                 body: JSON.stringify(contact._id)
-            }).then(res => res.json())
+            }).then(res => {
+                        
+              if (res.status===400){
+                  notification.error(
+                      {
+                        message: 'error',
+                        description:res.statusText   
+                      }
+                  )}else if (res.status===404){
+                      notification.error(
+                          {
+                            message: 'error',
+                            description:res.statusText   
+                          }
+                      )
+              }
+              else if(res.status===500){
+                  notification.error(
+                      {
+                        message: 'error',
+                        description:res.statusText   
+                      }
+                  )
+  
+                }
+          })
             .then(data => {
                 console.log(data)
                 this.fetchContacts(this.page)
@@ -108,7 +136,7 @@ class Contact extends Component {
                                                                 current:this.state.page, 
                                                                 total:this.state.totalDocs, 
                                                                 onChange:this.onPagerChange.bind(this)}} />
-        <button onClick={this.mostar.bind(this)}>agregar</button>
+        <button onClick={this.mostar.bind(this)}>Add new </button>
         {this.state.show&&<ContactEdit contact={this.state.selectedContact} rtabla={this.fetchContacts.bind(this)}/>}
         {this.state.showAdd&&<Contactform rtabla={this.fetchContacts.bind(this)}/>}
       </div>

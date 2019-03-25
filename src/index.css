@@ -12,3 +12,10 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
     monospace;
 }
+#divForm{
+  margin: 2rem
+}
+
+.ant-form-item-control{
+  width: 500px
+}

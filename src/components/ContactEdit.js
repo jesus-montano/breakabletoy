@@ -1,10 +1,13 @@
 import React, { Component } from 'react'
-
+import {
+    Form, Input, Select, Button, notification,
+} from 'antd';
 class ContactEdit extends Component {
 
     constructor(props) {
         super(props)
         this.state = {
+            
             id: '',
             name: '',
             lastname: '',
@@ -67,15 +70,41 @@ class ContactEdit extends Component {
             },
             body: JSON.stringify(putData)
         })
-            .then(res => res.json())
+            .then(res => {
+                        
+                if (res.status===400){
+                    notification.error(
+                        {
+                          message: 'error',
+                          description:res.statusText   
+                        }
+                    )}else if (res.status===404){
+                        notification.error(
+                            {
+                              message: 'error',
+                              description:res.statusText   
+                            }
+                        )
+                }
+                else if(res.status===500){
+                    notification.error(
+                        {
+                          message: 'error',
+                          description:res.statusText   
+                        }
+                    )
+    
+                  }
+            })
             .then(data => {
                 console.log(data)
                 this.props.rtabla()
                 
             })
     }
+    
     render() {
-        console.log(this.state.name)
+
         
         return (
             <div>
@@ -92,22 +121,25 @@ class ContactEdit extends Component {
                     </div>
                     <div>
                         <label>contact company</label>
-                        <input type="text" name="company" onChange={this.onChange} value={this.state.company}></input>
+                        <input   type="text" name="company" onChange={this.onChange} value={this.state.company}></input>
                     </div>
                     <div>
                         <label>contact phone</label>
-                        <input type="text" name="phone" onChange={this.onChange} value={this.state.phone}></input>
+                        <input   type="text" name="phone" onChange={this.onChange} value={this.state.phone}></input>
                     </div>
                     <div>
                         <label>contact email</label>
-                        <input type="text" name="email" onChange={this.onChange} value={this.state.email}></input>
+                        <input   type="text" name="email" onChange={this.onChange} value={this.state.email}></input>
                     </div>
 
 
                     <div>
-                        <button type="submmit">Save</button>
+                    <button type="submmit">Save</button>
+                   
+                    
                     </div>
                 </form>
+               
             </div>
         )
     }
