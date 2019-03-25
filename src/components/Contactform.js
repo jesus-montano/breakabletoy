@@ -10,6 +10,7 @@ class Contactform extends React.Component {
     state = {
         confirmDirty: false,
         autoCompleteResult: [],
+        
     };
 
     handleSubmit = (e) => {
@@ -62,9 +63,20 @@ class Contactform extends React.Component {
                             )
             
                           }
+                          else if(res.status===200){
+                            notification.success(
+                                {
+                                  message: 'success',
+                                  description:res.statusText   
+                                }
+                            )
+            
+                          }
                     })
                     .then(data => {
                         console.log(data)
+                        this.props.rtabla()
+                        
                     })
                     
             }
@@ -72,6 +84,7 @@ class Contactform extends React.Component {
     }
 
     render() {
+       
         const { getFieldDecorator } = this.props.form;
 
         const formItemLayout = {

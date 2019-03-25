@@ -95,6 +95,15 @@ class ContactEdit extends Component {
                     )
     
                   }
+                  else if(res.status===200){
+                    notification.success(
+                        {
+                          message: 'success',
+                          description:res.statusText   
+                        }
+                    )
+    
+                  }
             })
             .then(data => {
                 console.log(data)

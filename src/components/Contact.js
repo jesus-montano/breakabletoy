@@ -43,11 +43,11 @@ class Contact extends Component {
       },
       {
         title: 'Action', key: 'action',
-        render: (text, record) => (<a onClick={this.onContactCheck.bind(this, record)}>Edit</a>),
+        render: (text, record) => (<Button onClick={this.onContactCheck.bind(this, record)}>Edit</Button>),
       },
       {
         title: 'Action', key: 'action',
-        render: (text, record) => (<a onClick={this.onContactDelete.bind(this, record)}>Delete</a>),
+        render: (text, record) => (<Button type='danger' onClick={this.onContactDelete.bind(this, record)}>Delete</Button>),
       }
         ]
 
@@ -79,6 +79,15 @@ class Contact extends Component {
                   notification.error(
                       {
                         message: 'error',
+                        description:res.statusText   
+                      }
+                  )
+  
+                }
+                else if(res.status===200){
+                  notification.success(
+                      {
+                        message: 'success',
                         description:res.statusText   
                       }
                   )
@@ -137,7 +146,8 @@ class Contact extends Component {
                                                                 total:this.state.totalDocs, 
                                                                 onChange:this.onPagerChange.bind(this)}} />
         <Button type='primary' onClick={this.mostar.bind(this)}>Add new </Button>
-        {this.state.show&&<ContactEdit contact={this.state.selectedContact} rtabla={this.fetchContacts.bind(this)}/>}
+        {this.state.show&&<ContactEdit contact={this.state.selectedContact} rtabla={this.fetchContacts.bind(this)} 
+       />}
         {this.state.showAdd&&<Contactform rtabla={this.fetchContacts.bind(this)}/>}
       </div>
     )
